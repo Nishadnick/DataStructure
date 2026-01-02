@@ -1,0 +1,45 @@
+#include "sll.h"
+
+//remove duplicate data's from list
+int remove_duplicates( Slist **head )
+{
+	/* If list is empty */
+	if (*head == NULL)
+	{
+	return FAILURE;			//list empty
+	}
+	Slist *prev = *head;
+	Slist *ptr1 = *head;
+	Slist *ptr2 = ptr1->link;
+	while(ptr1->link!=NULL)
+	{
+		
+		while(ptr2->link!=NULL)				//PROBLEM//last element not accessible (otherwise OK)
+		//while(ptr2!=NULL)					//PROBLEM//adjacent repeate items cause fault
+		{	
+			if(ptr1->data==ptr2->data && ptr1!=ptr2 && ptr2->link!=NULL)
+			{
+				prev->link=ptr2->link;					//we remove ptr2 and prev will point to a place where ptr2 would've pointed
+				free(ptr2);
+				ptr2=prev->link;						//now that prev is pointing to a place, that become ptr2
+			}
+			else if(ptr1->data==ptr2->data && ptr1!=ptr2 && ptr2->link==NULL)		//this is for the end condition
+			{
+			printf("ptr1=%d ptr1=%d ptr1=%d \n",prev->data,ptr1->data,ptr2->data);
+			prev->link=ptr2->link;
+			free(ptr2);			
+				break;
+			}
+			else if(ptr1->data!=ptr2->data && ptr2->link!=NULL)
+			{
+				prev=ptr2;								//just mode ptrs 1 step ahead
+				ptr2=ptr2->link;
+			}	
+		}											//1st iteration complete so go to next number
+		ptr1=ptr1->link;							
+		prev=ptr1;
+		ptr2=ptr1->link;
+	//	printf("ptr1\n");
+	}
+	return SUCCESS;
+}

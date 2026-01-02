@@ -1,0 +1,31 @@
+#include "sll.h"
+
+int remove_duplicates(Slist **head)
+{
+	if(*head == NULL)
+		return FAILURE;
+	Slist *temp;
+	Slist *temp1 = *head;
+	Slist *prev;
+	while (temp1)
+	{
+		temp = *head;
+		while(temp)
+		{
+			if((temp->data == temp1->data) && (temp != temp1))
+			{
+				while (temp->link && (temp->data == (temp->link)->data))
+				{
+					temp = temp->link;
+				}
+				prev->link = temp->link;
+				temp->link = NULL;
+				free(temp);
+			}
+			prev = temp;
+			temp = prev->link;
+		}
+		temp1 = temp1->link;
+	}
+	return SUCCESS;
+}

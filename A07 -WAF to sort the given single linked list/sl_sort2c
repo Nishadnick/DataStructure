@@ -1,0 +1,54 @@
+#include "sll.h"
+
+int sl_sort(Slist **head)
+{
+	if (*head == NULL)
+	{
+		return LIST_EMPTY;
+	}
+	int flag=0;
+	Slist *temp1=*head;
+	Slist *temp2=temp1->link;
+	Slist *swap=NULL;
+	while(temp1->link!=NULL)
+	{
+		swap=*head;
+		flag--;
+		while(temp2->link!=NULL)
+		{
+			temp1=swap;
+			temp2=temp1->link;
+			printf("STARTO\n");
+			if(temp1->data > temp2->data)
+			{
+				printf("IF\n");
+				printf("temp1=%d,temp2=%d\n",temp1->data,temp2->data);
+				swap=temp2->link;				
+				temp2->link=temp1;
+				temp1->link=swap;	
+				if(temp1==*head)
+				{
+					*head=temp2;
+				}
+				swap=temp2;
+				flag++;
+				printf("temp1=%d,temp2=%d\n",temp1->data,temp2->data);
+			}
+			else if(temp1->data < temp2->data) 
+			{
+				printf("ELSE IF2\n");
+				swap=temp2;
+				printf("temp1=%d,temp2=%d\n",temp1->data,temp2->data);
+			}
+				
+		
+			swap=swap->link;
+		}
+			if(flag==0)
+			{
+				break;
+			}
+		
+	}
+	return SUCCESS;
+}

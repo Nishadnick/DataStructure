@@ -1,0 +1,36 @@
+#include "sll.h"
+
+//remove duplicate data's from list
+int remove_duplicates( Slist **head )
+{
+	/* If list is empty */
+	if (*head == NULL)
+	{
+	return FAILURE;			//list empty
+	}
+	Slist *prev;
+	Slist *ptr1 = *head;
+	Slist *ptr2;
+
+	while (ptr1 != NULL) 
+	{
+        prev = ptr1;
+		ptr2 = ptr1->link;
+        while (ptr2!= NULL) 
+		{
+            /* If duplicate then delete it */
+            if (ptr1->data == ptr2->data) 
+			{
+                prev->link = ptr2->link;
+                free(ptr2);	
+            }
+            else 
+			{
+                prev = ptr2;
+			}
+			ptr2=ptr2->link;
+        }
+        ptr1 = ptr1->link;
+    }
+	return SUCCESS;
+}

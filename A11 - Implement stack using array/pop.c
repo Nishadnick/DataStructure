@@ -1,0 +1,14 @@
+#include "stack.h"
+
+/* Function for Poping the element */
+int Pop(Stack_t *s)
+{	
+	if(s->top==-1)
+	{
+		return FAILURE;
+	}
+	//s.top=-1;
+	s->top--;
+	//s.stack[s.top]=element;
+	return SUCCESS;
+}

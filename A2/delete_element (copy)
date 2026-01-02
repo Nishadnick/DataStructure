@@ -1,0 +1,37 @@
+#include "sll.h"
+
+int sl_delete_element(Slist **head, data_t data)
+{
+	
+	if (*head == NULL)
+	{
+		/*If *head is empty then create the first node */
+		*head = new;
+		return SUCCESS;
+	}
+	Slist *temp=*head;
+	
+	if(temp->link==NULL)			//if only one node is availale and it is selected
+	{
+//		printf("1st node is null\n");
+		if(temp->data==data)			
+		{
+			*head=NULL;
+		}
+		free(temp);
+		return SUCCESS;
+	}
+	
+	Slist *del;
+	while(temp->link!=NULL)
+	{
+		if(temp->link->data==data)
+		{
+			del=temp->link;
+			temp->link=temp->link->link;
+			free(del);
+			return SUCCESS;
+		}
+		temp=temp->link;
+	}
+}

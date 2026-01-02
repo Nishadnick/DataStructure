@@ -1,0 +1,75 @@
+#include "sll.h"
+
+int sl_sort(Slist **head)
+{
+	if (*head==NULL)
+	{
+		return LIST_EMPTY;
+	}
+	
+	Slist *ptr1=*head;
+	Slist *ptr2=ptr1->link;
+	Slist *swap=*head;
+
+    int i, j, swapped=0, len=0;
+  	while(swap!=NULL)
+	{
+		swap=swap->link;
+		len++;
+	} 
+	printf("len %d\n",len);
+    for (i=0;i<=len;i++)
+    {
+		printf("Loop1\n");
+        swap = *head;
+        swapped = 0;
+        for (j=0;j<len-1-i;j++) 
+        {
+			printf("SWAP=%d  ptr1=%d  ptr2=%d\n",swap->data,ptr1->data,ptr2->data);
+			printf("Loop2\n");
+            //ptr1 = swap;
+            ptr2 = ptr1->link;
+            if (ptr1->data > ptr2->data)
+            { 
+                /* update the link after swapping */
+				
+				printf("SWAP=%d  ptr1=%d  ptr2=%d\n",swap->data,ptr1->data,ptr2->data);
+				printf("	SWAP\n");
+				if(ptr2->link!=NULL)
+				{
+				//	swap = ptr2->link;
+    			//	ptr2->link = ptr1;
+    			//	ptr1->link = swap;
+									
+					ptr1->link=ptr2->link;
+					ptr2->link=ptr1;	
+					if(ptr1==*head)
+					{
+						*head=ptr2;			
+					}
+					else if(ptr1!=*head)
+					{
+						swap->link=ptr2;										
+					}
+				}
+				printf("SWAP=%d  ptr1=%d  ptr2=%d\n",swap->data,ptr1->data,ptr2->data);
+                swap = ptr2;
+				ptr1=swap->link;
+                swapped = 1;
+				printf("IF END\n");
+            }  
+			else
+			{
+				swap=ptr1;
+			}
+			 //swap = (swap)->link;
+			printf("inner loop End\n");
+        }
+		ptr1=*head;		
+        //ptr2 = ptr1->link;
+        if (swapped == 0)
+            break;
+		 
+    }
+    return SUCCESS;
+}
